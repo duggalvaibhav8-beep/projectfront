@@ -1,0 +1,12 @@
+name: first git 
+on: 
+  push: 
+    branches: ['main']
+jobs:
+  run-app:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i 
+      - run:  pm2 start npm --name angular-fronts -- run start -- --host 0.0.0.0 --port 4200 
+      
