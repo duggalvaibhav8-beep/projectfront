@@ -7,6 +7,6 @@ RUN npm run build --configuration=production
 
 FROM nginx:alpine
 COPY --from=build /app/dist/projectfront /usr/share/nginx/html
-EXPOSE 80
+EXPOSE 8088
 CMD ["nginx", "-g", "daemon off;"]
 
