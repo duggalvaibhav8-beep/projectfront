@@ -1,11 +1,12 @@
-FROM node:22-alpine
-
+FROM node:22-alpine AS build
 WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build --configuration=production
 
-COPY . . 
-RUN npm install
+FROM nginx:alpine
+COPY --from=build /app/dist/projectfront /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
-
-EXPOSE 4200
-
-CMD ["npm", "start", "--", "--host", "0.0.0.0", "--port", "4200" , "--disable-host-check"]
