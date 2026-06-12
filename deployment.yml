@@ -13,10 +13,12 @@ spec:
     metadata:
       labels:
         app: dev
+        
     spec:
       containers:
       - name: dev
-        image: vaibhavduggal/projectworkfront:latest
+        image: duggal:latest     
+        imagePullPolicy: Never   
         ports:
         - containerPort: 4200
 
