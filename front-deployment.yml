@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiza-deployment
+  labels:
+    app: kiza
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kiza
+  template:
+    metadata:
+      labels:
+        app: kiza
+    spec:
+      containers:
+      - name: kiza
+        image: vaibhavduggal/radha:latest
+        ports:
+        - containerPort: 4200
+
