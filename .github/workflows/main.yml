@@ -11,9 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - run: docker rm -f kunj || true
-
-      - run: docker build -t kunj .
-
-      - run: docker run -d --name kunj -p 4200:4200 kunj
+      - run: npm i 
+      - run: npm run build 
+      - run: pm2 start http-server --name vaibhav -- -p 4200 -d false 
