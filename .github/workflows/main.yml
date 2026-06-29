@@ -27,8 +27,9 @@ jobs:
             sudo npm install
             sudo npm run build || true
             sudo npm i -g http-server pm2 
+            cd /home/ubuntu/projectfront/dist/projectfront
             sudo pm2 delete all
-            sudo pm2 start http-server \  --name vaibhav \ -- /home/ubuntu/projectfront/dist/projectfront -p 4200
+            sudo pm2 start http-server --name vaibhav -- -p 4200
             sudo pm2 save
         
 
