@@ -24,11 +24,11 @@ jobs:
 
             git pull origin main 
 
-            npm install
-            npm run build || true
-            npm i -g http-server pm2 
-            pm2 delete vaibhav || true
-            pm2 start http-server /home/ubuntu/projectfront/dist/projectfront --name vaibhav -- -p 4200  
+            sudo npm install
+            sudo npm run build || true
+            sudo npm i -g http-server pm2 
+            sudo pm2 delete vaibhav || true
+            sudo pm2 start http-server /home/ubuntu/projectfront/dist/projectfront --name vaibhav -- -p 4200  
           
         
 
