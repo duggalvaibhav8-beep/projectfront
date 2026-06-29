@@ -28,8 +28,9 @@ jobs:
             sudo npm run build || true
             sudo npm i pm2 -g 
             sudo npm i http-server -g
+            
             pm2 delete vaibhav || true
-            sudo pm2 start http-server --name vaibhav -- -p 4200 -d false 
+            sudo pm2 start http-server /home/ubuntu/projectfront/dist/projectfront --name vaibhav -- -p 4200  
           
         
 
