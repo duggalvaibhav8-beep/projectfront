@@ -14,7 +14,7 @@ jobs:
 
         
       - name: Deploy to EC2
-        uses: appleboy/ssh-actions@v1.2.0
+        uses: appleboy/ssh-action@v1.2.0
         with: 
           host: ${{ secrets.IP }}
           username: ubuntu
@@ -28,6 +28,7 @@ jobs:
             sudo npm run build || true
             sudo npm i pm2 -g 
             sudo npm i http-server -g
+            pm2 delete vaibhav || true
             sudo pm2 start http-server --name vaibhav -- -p 4200 -d false 
           
         
