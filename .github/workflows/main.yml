@@ -6,32 +6,29 @@ on:
 
 jobs:
   run-app:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ---------------- FRONTEND ----------------
-      - name: Install frontend
-        run: npm install
-        working-directory: frontend-kiza
+        
+      - name: Deploy to EC2
+        uses: appleboy/ssh-actions@v1.2.0
+        with: 
+          host: ${{ secrets.IP }}
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: | 
+            cd /home/ubuntu/projectfront
 
-      - name: Start frontend with PM2
-        run: |
-          pm2 delete angular-front || true
-          pm2 start npm --name angular-front -- run start -- --host 0.0.0.0 --port 4200
-          pm2 save
-        working-directory: frontend-kiza
+            git pull origin main 
 
-      # ---------------- BACKEND ----------------
-      - name: Install backend
-        run: npm install
-        working-directory: backend
+            sudo npm install
+            sudo npm run build || true
+            sudo npm i pm2 -g 
+            sudo npm i http-server -g
+            sudo pm2 start http-server --name vaibhav -- -p 4200 -d false 
+          
+        
 
-      - name: Start backend with PM2
-        run: |
-          pm2 delete node-backend || true
-          pm2 start index.js --name node-backend
-          pm2 save
-        working-directory: backend
