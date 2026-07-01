@@ -1,35 +1,35 @@
-name: next git
+name: next git docker
 
 on:
   push:
     branches: ['main']
 
 jobs:
-  run-app:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-        
-      - name: Deploy to EC2
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v1.2.0
-        with: 
+        with:
           host: ${{ secrets.IP }}
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
-          script: | 
+          script: |
             cd /home/ubuntu/projectfront
 
-            git pull origin main 
+            # update latest code
+            git pull origin main
 
-            sudo npm install
-            sudo npm run build || true
-            sudo npm i -g http-server pm2 
-            cd /home/ubuntu/projectfront/dist/projectfront
-            sudo pm2 delete all
-            sudo pm2 start http-server --name vaibhav -- -p 4200
-            sudo pm2 save
-        
+            # build docker image
+            docker build -t best .
 
+            # stop old container
+            docker stop projectfront || true
+            docker rm projectfront || true
+
+            # run new container
+            docker run -d -p 4200:4200 best
