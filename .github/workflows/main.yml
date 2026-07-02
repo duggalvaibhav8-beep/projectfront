@@ -27,4 +27,4 @@ jobs:
             npm run build 
             npm i http-server -g 
             sudo npm i pm2 -g 
-            pm2 restart frontend || pm2 start http-server --name frontend -- dist -p 4201 -d false
+            pm2 restart frontend || pm2 start http-server --name frontend -- dist/projectfront -p 4200 -d false
