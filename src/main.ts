@@ -6,11 +6,11 @@ import { environment } from './environments/environment';
 
 
 export function getBaseUrl(){
-  return "http://44.202.110.157:3004/api"
+  return "http://13.200.5.124:3004/api"
 }
 
 export function getBaseUrlImage(){
-  return "http://44.202.110.157:3004/"
+  return "http://13.200.5.124:3004/"
 }
 
 const providers = [
